@@ -24,7 +24,7 @@ public class DemoHbRunner extends AbsHbRunner {
         super(monitorService);
     }
 
-    @Override
+
     public String getAppAuthToken() {
         // 对于系统商，如果是为了商户开发监控保障接口，则需要传此值，否则如果为系统商自己做交易保障接口开发，则可不传。
         return null;

@@ -1,7 +1,11 @@
 package com.mmall.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
- * Created by upupgogogo on 2018/3/13.下午4:10
+ * Created by geely
  */
 public interface IFileService {
+
+    String upload(MultipartFile file, String path);
 }

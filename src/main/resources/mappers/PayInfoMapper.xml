@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="pay_platform" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="pay_platform" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="platform_number" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="platform_status" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
@@ -32,7 +32,7 @@
       pay_platform, platform_number, platform_status, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT}, 
-      #{payPlatform,jdbcType=BIT}, #{platformNumber,jdbcType=VARCHAR}, #{platformStatus,jdbcType=VARCHAR}, 
+      #{payPlatform,jdbcType=INTEGER}, #{platformNumber,jdbcType=VARCHAR}, #{platformStatus,jdbcType=VARCHAR}, 
       now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.mmall.pojo.PayInfo" >
@@ -74,7 +74,7 @@
         #{orderNo,jdbcType=BIGINT},
       </if>
       <if test="payPlatform != null" >
-        #{payPlatform,jdbcType=BIT},
+        #{payPlatform,jdbcType=INTEGER},
       </if>
       <if test="platformNumber != null" >
         #{platformNumber,jdbcType=VARCHAR},
@@ -100,7 +100,7 @@
         order_no = #{orderNo,jdbcType=BIGINT},
       </if>
       <if test="payPlatform != null" >
-        pay_platform = #{payPlatform,jdbcType=BIT},
+        pay_platform = #{payPlatform,jdbcType=INTEGER},
       </if>
       <if test="platformNumber != null" >
         platform_number = #{platformNumber,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
     update mmall_pay_info
     set user_id = #{userId,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=BIGINT},
-      pay_platform = #{payPlatform,jdbcType=BIT},
+      pay_platform = #{payPlatform,jdbcType=INTEGER},
       platform_number = #{platformNumber,jdbcType=VARCHAR},
       platform_status = #{platformStatus,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

@@ -6,7 +6,7 @@
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="shopping_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="shipping_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="payment" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="payment_type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="postage" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -20,7 +20,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, order_no, user_id, shopping_id, payment, payment_type, postage, status, payment_time, 
+    id, order_no, user_id, shipping_id, payment, payment_type, postage, status, payment_time, 
     send_time, end_time, close_time, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -35,15 +35,15 @@
   </delete>
   <insert id="insert" parameterType="com.mmall.pojo.Order" >
     insert into mmall_order (id, order_no, user_id, 
-      shopping_id, payment, payment_type, 
+      shipping_id, payment, payment_type, 
       postage, status, payment_time, 
       send_time, end_time, close_time, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, 
-      #{shoppingId,jdbcType=INTEGER}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=INTEGER}, 
+      #{shippingId,jdbcType=INTEGER}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=INTEGER}, 
       #{postage,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{paymentTime,jdbcType=TIMESTAMP}, 
       #{sendTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-     now(), now())
+      now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.mmall.pojo.Order" >
     insert into mmall_order
@@ -57,8 +57,8 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="shoppingId != null" >
-        shopping_id,
+      <if test="shippingId != null" >
+        shipping_id,
       </if>
       <if test="payment != null" >
         payment,
@@ -101,8 +101,8 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="shoppingId != null" >
-        #{shoppingId,jdbcType=INTEGER},
+      <if test="shippingId != null" >
+        #{shippingId,jdbcType=INTEGER},
       </if>
       <if test="payment != null" >
         #{payment,jdbcType=DECIMAL},
@@ -145,8 +145,8 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="shoppingId != null" >
-        shopping_id = #{shoppingId,jdbcType=INTEGER},
+      <if test="shippingId != null" >
+        shipping_id = #{shippingId,jdbcType=INTEGER},
       </if>
       <if test="payment != null" >
         payment = #{payment,jdbcType=DECIMAL},
@@ -185,7 +185,7 @@
     update mmall_order
     set order_no = #{orderNo,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=INTEGER},
-      shopping_id = #{shoppingId,jdbcType=INTEGER},
+      shipping_id = #{shippingId,jdbcType=INTEGER},
       payment = #{payment,jdbcType=DECIMAL},
       payment_type = #{paymentType,jdbcType=INTEGER},
       postage = #{postage,jdbcType=INTEGER},
@@ -198,4 +198,55 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selectByUserIdAndOrderNo" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    from mmall_order
+    where order_no = #{orderNo}
+    and user_id = #{userId}
+  </select>
+
+
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="long">
+    SELECT
+    <include refid="Base_Column_List">
+    </include>
+    FROM  mmall_order
+    where order_no = #{orderNo}
+  </select>
+
+
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="int">
+    SELECT
+      <include refid="Base_Column_List"/>
+    from mmall_order
+    where user_id = #{userId}
+    order by create_time desc
+  </select>
+
+
+
+  <select id="selectAllOrder" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_order
+    ORDER BY  create_time desc
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
