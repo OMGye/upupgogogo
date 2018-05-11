@@ -58,7 +58,7 @@ public class CartServiceImpl implements ICartService {
     }
 
     public ServerResponse<CartVo> update(Integer userId,Integer productId,Integer count){
-        if(productId == null || count == null){
+        if(productId == null || count == null || count <= 0){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
         Cart cart = cartMapper.selectCartByUserIdProductId(userId,productId);
