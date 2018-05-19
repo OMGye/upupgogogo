@@ -38,7 +38,7 @@ public class CartServiceImpl implements ICartService {
         }
 
         Product product = productMapper.selectByPrimaryKey(productId);
-        if(product != null && product.getStock == 0){
+        if(product != null && product.getStock() == 0){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
 
