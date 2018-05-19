@@ -33,7 +33,7 @@ public class CartServiceImpl implements ICartService {
     private ProductMapper productMapper;
 
     public ServerResponse<CartVo> add(Integer userId,Integer productId,Integer count){
-        if(productId == null || count == null){
+        if(productId == null || count == null || count <= 0){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
 
