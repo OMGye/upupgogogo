@@ -7,7 +7,7 @@
 
 #kdiff3
 *.orig
-
+git
 #maven ignore
 target/
 
